@@ -1,7 +1,9 @@
 package org.example.springweb.controlller;
 
 import org.example.springweb.Domain.Post;
+import org.example.springweb.Domain.PostCreateRequestDto;
 import org.example.springweb.Domain.PostDetailResponseDto;
+import org.example.springweb.Domain.PostUpdateRequestDto;
 import org.example.springweb.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +43,15 @@ public class PostController {
     @PutMapping("/posts/{postId}")
     public int updateLikesPost(@PathVariable("postId") int postId) {
         return postService.increaseLikes(postId);
+    }
+
+    @PostMapping("/posts")
+    public PostDetailResponseDto createNewPost(@RequestBody PostCreateRequestDto postDto) {
+        return postService.createPost(postDto);
+    }
+
+    @PatchMapping("/posts/{postId}")
+    public PostDetailResponseDto updateBodyPost(@PathVariable("postId") int postId, @RequestBody PostUpdateRequestDto postDto) {
+        return postService.updatePost(postDto);
     }
 }

@@ -1,6 +1,7 @@
 package org.example.springweb.Domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data

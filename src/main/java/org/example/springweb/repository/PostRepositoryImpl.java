@@ -39,8 +39,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public int insertPost(Post post) {
-        seq++;
-        post.setPostId(seq);
+        post.setPostId(++seq);
         posts.put(post.getPostId(), post);
         return seq;
     }
