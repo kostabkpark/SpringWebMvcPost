@@ -4,10 +4,7 @@ import org.example.springweb.Domain.Post;
 import org.example.springweb.Domain.PostDetailResponseDto;
 import org.example.springweb.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,5 +35,11 @@ public class PostController {
     public String deletePost(@PathVariable("postId") int postId) {
         postService.removePost(postId);
         return "삭제 완료";
+    }
+
+    // 게시판 글에 대한 좋아요 카운트 up
+    @PutMapping("/posts/{postId}")
+    public int updateLikesPost(@PathVariable("postId") int postId) {
+        return postService.increaseLikes(postId);
     }
 }

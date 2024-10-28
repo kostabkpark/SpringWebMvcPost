@@ -24,6 +24,9 @@ public class PostService {
 
     public PostDetailResponseDto getPostDetail(int postId) {
         Post post = postRepository.findById(postId);
+        if (post == null) {
+            return null;
+        }
         PostDetailResponseDto retPost = new PostDetailResponseDto(
                 post.getPostId(),
                 post.getTitle(),
@@ -35,5 +38,15 @@ public class PostService {
 
     public void removePost(int postId) {
         postRepository.deletePost(postId);
+    }
+
+    public int increaseLikes(int postId) {
+        Post post = postRepository.findById(postId);
+        int likes = 0;
+        if (post != null) {
+            likes = post.getLikes() + 1;
+            post.setLikes(likes);
+        }
+        return likes;
     }
 }
