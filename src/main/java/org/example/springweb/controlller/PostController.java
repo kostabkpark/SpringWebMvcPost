@@ -1,9 +1,6 @@
 package org.example.springweb.controlller;
 
-import org.example.springweb.Domain.Post;
-import org.example.springweb.Domain.PostCreateRequestDto;
-import org.example.springweb.Domain.PostDetailResponseDto;
-import org.example.springweb.Domain.PostUpdateRequestDto;
+import org.example.springweb.Domain.*;
 import org.example.springweb.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +19,7 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<Post> viewAllPosts() {
+    public List<PostAllResponseDto> viewAllPosts() {
         //return "View All Posts";
         return postService.getAllPosts();
     }

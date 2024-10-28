@@ -1,15 +1,13 @@
 package org.example.springweb.service;
 
-import org.example.springweb.Domain.Post;
-import org.example.springweb.Domain.PostCreateRequestDto;
-import org.example.springweb.Domain.PostDetailResponseDto;
-import org.example.springweb.Domain.PostUpdateRequestDto;
+import org.example.springweb.Domain.*;
 import org.example.springweb.repository.PostRepository;
 import org.example.springweb.repository.PostRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -22,9 +20,13 @@ public class PostService {
         this.postRepositoryImpl = postRepositoryImpl;
     }
 
-    public List<Post> getAllPosts() {
+    public List<PostAllResponseDto> getAllPosts() {
         //return "PostService 가 호출되었습니다.";
-        return postRepository.findAll();
+        List<Post> allPosts = postRepository.findAll();
+        List<PostAllResponseDto> postDtos = allPosts.stream()
+                .map(PostAllResponseDto::of)
+                .collect(Collectors.toList());
+        return postDtos;
     }
 
     public PostDetailResponseDto getPostDetail(int postId) {
