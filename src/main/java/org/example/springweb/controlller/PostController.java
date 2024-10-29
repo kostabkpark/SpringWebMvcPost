@@ -13,6 +13,16 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
+    @GetMapping("/posts/likes")
+    public List<PostAllResponseDto> viewAllPostsWithLikes(
+            @RequestParam(name="likes", required = false) Integer likes,
+            @RequestParam(name="title", required = false) String title
+            ) {
+        //return "View All Posts";
+        return postService.getAllPostsWithLikes(likes, title);
+    }
+
+
     @GetMapping("/posts")
     public List<PostAllResponseDto> viewAllPosts() {
         //return "View All Posts";

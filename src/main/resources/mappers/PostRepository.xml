@@ -3,8 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.springweb.repository.PostRepository">
-    <select id ="findAll" resultType="org.example.springweb.Domain.Post">
+<!--    <select id ="findAll" resultType="org.example.springweb.Domain.Post">-->
+<!--        SELECT * FROM post-->
+<!--    </select>-->
+    <select id="findAllWithLikes"
+            resultType="org.example.springweb.Domain.Post"
+            parameterType="map"
+            >
         SELECT * FROM post
+        <where>
+            <if test="title != null and title != ''">
+                AND title like concat('%', #{title}, '%')
+            </if>
+            <if test="likes != null">
+                AND likes &gt; #{likes}
+            </if>
+        </where>
     </select>
     <select id ="findById" parameterType="int" resultType="org.example.springweb.Domain.Post">
         SELECT * FROM post WHERE postid = #{postId}

@@ -25,6 +25,15 @@ public class PostService {
         return postDtos;
     }
 
+    public List<PostAllResponseDto> getAllPostsWithLikes(Integer likes, String title) {
+        //likes 값보다 큰 게시판을 전부 조회
+        List<Post> allPosts = postRepository.findAllWithLikes(likes, title);
+        List<PostAllResponseDto> postDtos = allPosts.stream()
+                .map(PostAllResponseDto::of)
+                .collect(Collectors.toList());
+        return postDtos;
+    }
+
     public PostDetailResponseDto getPostDetail(int postId) {
         Post post = postRepository.findById(postId);
         if (post == null) {

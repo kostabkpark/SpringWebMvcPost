@@ -23,6 +23,11 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
+    public List<Post> findAllWithLikes(Integer likes, String title) {
+        return List.of();
+    }
+
+    @Override
     public Post findById(int postId) {
         return posts.get(postId);
     }
