@@ -61,8 +61,8 @@ public class PostService {
             postDto.getBody(),
             0
         );
-        int postId = postRepository.insertPost(post);
-        return getPostDetail(postId);
+        postRepository.insertPost(post); // 리턴값은 0(실패) ,1(성공)
+        return getPostDetail(post.getPostId()); // generated 된 키를 이용
     }
 
     public PostDetailResponseDto updatePost(PostUpdateRequestDto postDto) {
