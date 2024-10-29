@@ -1,5 +1,6 @@
 package org.example.springweb.controlller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.springweb.Domain.*;
 import org.example.springweb.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class PostController {
-
     private final PostService postService;
-    //private final A a = new A();
-
-    @Autowired
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
 
     @GetMapping("/posts")
     public List<PostAllResponseDto> viewAllPosts() {

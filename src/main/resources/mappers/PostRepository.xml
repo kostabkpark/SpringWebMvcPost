@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.springweb.repository.PostRepository">
+    <select id ="findAll" resultType="org.example.springweb.Domain.Post">
+        SELECT * FROM post
+    </select>
+    <select id ="findById" parameterType="int" resultType="org.example.springweb.Domain.Post">
+        SELECT * FROM post WHERE postid = #{postid}
+    </select>
+    <delete id="deletePost" parameterType="int">
+        DELETE FROM post
+        WHERE postid = #{postid}
+    </delete>
+    <update id="updatePost" parameterType="org.example.springweb.Domain.Post">
+        UPDATE post
+        SET body = #{body} , likes = #{likes}
+        WHERE postid = #{postid}
+    </update>
+    <insert id="insertPost" parameterType="org.example.springweb.Domain.Post">
+        INSERT INTO post(title, body)
+        VALUES (#{title}, #{body})
+    </insert>
+<!--    List<Post> ();-->
+<!--    Post findById(int postId);-->
+<!--    void deletePost(int postId);-->
+<!--    void updatePost(Post post);-->
+<!--    int insertPost(Post post);-->
+
+</mapper>
+

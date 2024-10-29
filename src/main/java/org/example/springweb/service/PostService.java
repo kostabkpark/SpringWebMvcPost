@@ -1,6 +1,8 @@
 package org.example.springweb.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.springweb.Domain.*;
+import org.example.springweb.controlller.PostController;
 import org.example.springweb.repository.PostRepository;
 import org.example.springweb.repository.PostRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
-    private final PostRepositoryImpl postRepositoryImpl;
-
-    @Autowired
-    public PostService(PostRepository postRepository, PostRepositoryImpl postRepositoryImpl) {
-        this.postRepository = postRepository;
-        this.postRepositoryImpl = postRepositoryImpl;
-    }
 
     public List<PostAllResponseDto> getAllPosts() {
         //return "PostService 가 호출되었습니다.";
@@ -54,6 +50,7 @@ public class PostService {
             likes = post.getLikes() + 1;
             post.setLikes(likes);
         }
+        postRepository.updatePost(post);
         return likes;
     }
 
