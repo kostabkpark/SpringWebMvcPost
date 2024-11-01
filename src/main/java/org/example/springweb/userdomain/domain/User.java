@@ -1,4 +1,4 @@
-package org.example.springweb.Domain;
+package org.example.springweb.userdomain.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

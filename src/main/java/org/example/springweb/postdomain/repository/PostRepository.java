@@ -1,12 +1,7 @@
-package org.example.springweb.repository;
+package org.example.springweb.postdomain.repository;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.example.springweb.Domain.Post;
+import org.example.springweb.postdomain.domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
     //List<Post> findAll();

@@ -1,4 +1,4 @@
-package org.example.springweb.Domain;
+package org.example.springweb.postdomain.domain;
 
 
 import lombok.*;

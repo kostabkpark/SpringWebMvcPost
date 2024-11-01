@@ -1,7 +1,8 @@
-package org.example.springweb.Domain;
+package org.example.springweb.postdomain.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.springweb.userdomain.domain.User;
 
 @Entity
 @Getter

@@ -1,10 +1,7 @@
 package org.example.springweb.controlller;
 
-import org.example.springweb.service.PostService;
+import org.example.springweb.postdomain.controlller.PostController;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PostControllerTest {
     PostController postController;
