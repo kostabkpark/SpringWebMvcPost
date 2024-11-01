@@ -23,6 +23,11 @@ public class PostController {
         return postService.getAllPosts();
     }
 
+    @GetMapping("/{postId}")
+    public PostDetailResponseDto viewPost(@PathVariable("postId") int postId) {
+        return postService.getPostDetail(postId);
+    }
+
     @PostMapping("/users/{userId}")
     public PostDetailResponseDto createNewPostWithUser(
             @PathVariable("userId") String userId,
@@ -40,5 +45,12 @@ public class PostController {
         return postService.updateBodyWithUser(postId, userId, postDto);
     }
 
+    @DeleteMapping("/{postId}/users/{userId}")
+    public void deletePostWithUser(
+            @PathVariable("postId") int postId,
+            @PathVariable("userId") String userId
+    ){
+        postService.removePostWithUser(postId, userId);
+    }
 
 }

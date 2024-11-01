@@ -29,7 +29,7 @@ public class PostService {
     }
 
     public PostDetailResponseDto getPostDetail(int postId) {
-        Post post = postRepository.findById(postId).get();
+        Post post = postRepository.getPostWithUserFetchjoin(postId);
         if (post == null) {
             return null;
         }
@@ -54,6 +54,20 @@ public class PostService {
     }
 
     public PostDetailResponseDto updateBodyWithUser(int postId, String userId, PostUpdateRequestDto postDto) {
+        Post post = postRepository.findById(postId).get();
+        if(post != null && post.getWriter().getUserId().equals(userId)) {
+            post.setBody(postDto.getBody());
+            Post save = postRepository.save(post);
+            return getPostDetail(save.getPostId());
+        }
+        return null;
+    }
+
+    public void removePostWithUser(int postId, String userId) {
+        Post post = postRepository.findById(postId).get();
+        if(post != null && post.getWriter().getUserId().equals(userId)) {
+            postRepository.delete(post);
+        }
     }
 
 //    public List<PostAllResponseDto> getAllPostsWithLikes(Integer likes, String title) {
