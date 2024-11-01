@@ -11,4 +11,5 @@ public class PostDetailResponseDto {
     private String title;
     private String body;
     private int likes;
+    private String userId;
 }

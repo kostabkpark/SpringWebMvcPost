@@ -5,15 +5,19 @@ import lombok.RequiredArgsConstructor;
 import org.example.springweb.postdomain.domain.*;
 import org.example.springweb.postdomain.repository.PostRepository;
 
+import org.example.springweb.userdomain.domain.User;
+import org.example.springweb.userdomain.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     public List<PostAllResponseDto> getAllPosts() {
         //return "PostService 가 호출되었습니다.";
@@ -22,6 +26,34 @@ public class PostService {
                 .map(PostAllResponseDto::of)
                 .collect(Collectors.toList());
         return postDtos;
+    }
+
+    public PostDetailResponseDto getPostDetail(int postId) {
+        Post post = postRepository.findById(postId).get();
+        if (post == null) {
+            return null;
+        }
+        PostDetailResponseDto retPost = new PostDetailResponseDto(
+                post.getPostId(),
+                post.getTitle(),
+                post.getBody(),
+                post.getLikes(),
+                post.getWriter().getUserId()
+        );
+        return retPost;
+    }
+
+    public PostDetailResponseDto createPostWithUser(String userId, PostCreateRequestDto postDto) {
+        User user = userRepository.findByUserId(userId);
+        Post post = new Post();
+        post.setTitle(postDto.getTitle());
+        post.setBody(postDto.getBody());
+        post.setWriter(user);
+        postRepository.save(post);
+        return getPostDetail(post.getPostId());
+    }
+
+    public PostDetailResponseDto updateBodyWithUser(int postId, String userId, PostUpdateRequestDto postDto) {
     }
 
 //    public List<PostAllResponseDto> getAllPostsWithLikes(Integer likes, String title) {
@@ -33,19 +65,7 @@ public class PostService {
 //        return postDtos;
 //    }
 
-//    public PostDetailResponseDto getPostDetail(int postId) {
-//        Post post = postRepository.findById(postId);
-//        if (post == null) {
-//            return null;
-//        }
-//        PostDetailResponseDto retPost = new PostDetailResponseDto(
-//                post.getPostId(),
-//                post.getTitle(),
-//                post.getBody(),
-//                post.getLikes()
-//        );
-//        return retPost;
-//    }
+
 
 //    public void removePost(int postId) {
 //        postRepository.deletePost(postId);
@@ -62,16 +82,7 @@ public class PostService {
 //        return likes;
 //    }
 
-//    public PostDetailResponseDto createPost(PostCreateRequestDto postDto) {
-//        Post post = new Post(
-//            0,
-//            postDto.getTitle(),
-//            postDto.getBody(),
-//            0
-//        );
-//        postRepository.insertPost(post); // 리턴값은 0(실패) ,1(성공)
-//        return getPostDetail(post.getPostId()); // generated 된 키를 이용
-//    }
+//
 
 //    public PostDetailResponseDto updatePost(PostUpdateRequestDto postDto) {
 //        Post post = postRepository.findById(postDto.getPostId());

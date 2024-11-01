@@ -10,4 +10,5 @@ import lombok.*;
 public class PostCreateRequestDto {
     private String title;
     private String body;
+//    private String userId;
 }
