@@ -1,5 +1,6 @@
 package org.example.springweb.postdomain.service;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import org.example.springweb.postdomain.domain.*;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+
 
     public List<PostAllResponseDto> getAllPosts() {
         //return "PostService 가 호출되었습니다.";
