@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DynamicSearchCond {
-    private String userName;
+    private String userId;
     private Integer likes;
 }

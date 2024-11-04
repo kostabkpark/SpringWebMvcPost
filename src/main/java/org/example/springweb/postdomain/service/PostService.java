@@ -1,17 +1,16 @@
 package org.example.springweb.postdomain.service;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import org.example.springweb.postdomain.domain.*;
 import org.example.springweb.postdomain.repository.PostRepository;
 
+//import org.example.springweb.postdomain.repository.PostRepositoryQuery;
 import org.example.springweb.userdomain.domain.User;
 import org.example.springweb.userdomain.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +18,7 @@ import java.util.stream.Collectors;
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    //private final PostRepositoryQuery postRepositoryQuery;
 
 
     public List<PostAllResponseDto> getAllPosts() {
@@ -71,6 +71,13 @@ public class PostService {
             postRepository.delete(post);
         }
     }
+
+//    public List<PostAllResponseDto> getAllPostWithSearchCond(DynamicSearchCond searchCond) {
+//        return postRepositoryQuery.getAllPostWithLikesAndWriter(searchCond)
+//                .stream()
+//                .map(PostAllResponseDto::of)
+//                .collect(Collectors.toList());
+//    }
 
 //    public List<PostAllResponseDto> getAllPostsWithLikes(Integer likes, String title) {
 //        //likes 값보다 큰 게시판을 전부 조회
