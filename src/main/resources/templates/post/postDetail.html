@@ -5,23 +5,25 @@
     <title>게시판 글 상세보기</title>
 </head>
 <body>
-    <table>
+    <table th:object="${post}">
         <tr>
             <th>글번호</th>
-            <td th:text="${post.postId}"></td>
+            <td th:text="*{postId}">1</td>
         </tr>
         <tr>
             <th>제목</th>
-            <td th:text="${post.title}"></td>
+            <td th:text="*{title}">제목</td>
         </tr>
         <tr>
             <th>내용</th>
-            <td th:text="${post.body}"></td>
+            <td th:text="*{body}">내용</td>
         </tr>
         <tr>
             <th>좋아요</th>
-            <td th:text="${post.likes}"></td>
+            <td th:text="*{likes}">0</td>
         </tr>
     </table>
+    <button th:onclick="|location.href='@{/posts/update/{postId}(postId=*{postId})}'|">수정하기</button>
+    <button th:onclick="|location.href='@{/posts}'|">목록으로</button>
 </body>
 </html>

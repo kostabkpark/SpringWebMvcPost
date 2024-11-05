@@ -37,24 +37,39 @@ public class PostController {
         return "post/postDetail";
     }
 
-    @PostMapping("/users/{userId}")
-    public PostDetailResponseDto createNewPostWithUser(
-            @PathVariable("userId") String userId,
-            @RequestBody PostCreateRequestDto postDto) {
+    @GetMapping("/add")
+    public String createNewPostWithUser(Model model) {
+        model.addAttribute("post", new Post());
+        return "post/postAdd";
+    }
+
+    @PostMapping("/add")
+    public String createNewPostWithUser(
+//            @PathVariable("userId") String userId,
+            PostCreateRequestDto postDto) {
 //        postDto.setUserId(userId);
-        return postService.createPostWithUser(userId, postDto);
+        postService.createPostWithUser("aaa", postDto);
+        return "redirect:/posts";
     }
 
-    @PatchMapping("/{postId}/users/{userId}")
-    public PostDetailResponseDto updatePostWithUser(
+    @GetMapping("/update/{postId}")
+    public String updatePostWithUser(@PathVariable("postId") int postId,
+                                     Model model){
+        model.addAttribute("post", postService.getPostDetail(postId));
+        return "post/postUpdate";
+    }
+
+    @PostMapping("/update/{postId}")   //  /posts/update/{postId}  /users/{userId}")
+    public String updatePostWithUser(
             @PathVariable("postId") int postId,
-            @PathVariable("userId") String userId,
-            @RequestBody PostUpdateRequestDto postDto
+//            @PathVariable("userId") String userId,
+            PostUpdateRequestDto postDto
     ) {
-        return postService.updateBodyWithUser(postId, userId, postDto);
+        postService.updateBodyWithUser(postId, "aaa", postDto);
+        return "redirect:/posts/{postId}";
     }
 
-    @DeleteMapping("/{postId}/users/{userId}")
+    @PostMapping("/{postId}/users/{userId}")
     public void deletePostWithUser(
             @PathVariable("postId") int postId,
             @PathVariable("userId") String userId
