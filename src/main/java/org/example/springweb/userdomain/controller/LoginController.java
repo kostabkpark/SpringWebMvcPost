@@ -28,10 +28,13 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute UserLoginDto userLoginDto,
-                        @RequestParam(required = true, defaultValue = "/posts") String redirectURI,
+                        @RequestParam(name="redirectURI", required = true, defaultValue = "/posts") String redirectURI,
                         HttpServletRequest req,
                         HttpServletResponse res){
+
+        log.info("redirect uri: {}", redirectURI);
         User loginUser = loginService.login(userLoginDto);
+        log.info("loginUser: {}", loginUser);
         if(loginUser == null){
             return "redirect:/login";
         }

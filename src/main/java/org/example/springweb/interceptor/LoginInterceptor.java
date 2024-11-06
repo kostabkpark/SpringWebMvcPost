@@ -17,22 +17,15 @@ public class LoginInterceptor implements HandlerInterceptor {
         String redirectURI = request.getRequestURI(); // 로그인 후에 돌아갈 URI
         // 로그인 여부 확인 (세션, 로그인?)
         HttpSession session = request.getSession(false);// 로그인 되어 있으면 세션get,로그인 안되어 있으면 null
-        if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/login?redirectURI=" + redirectURI);
-            return false;
+        if (session != null) {
+            Object objSession = session.getAttribute(SessionConst.SESSION_NAME);
+            if (objSession != null && objSession instanceof UserSession) {
+                UserSession userSession = (UserSession) objSession;
+                log.info("user session: {} ", userSession);
+                return true;
+            }
         }
-        Object objSession = session.getAttribute(SessionConst.SESSION_NAME);
-        if (objSession == null) {
-            response.sendRedirect(request.getContextPath() + "/login?redirectURI=" + redirectURI);
-            return false;
-        }
-        if (objSession instanceof UserSession) {
-            UserSession userSession = (UserSession) objSession;
-            log.info("user session: {} ", userSession);
-            return true;
-        } else {
-            log.info("obj session: {} ", objSession);
-            return false;
-        }
+        response.sendRedirect(request.getContextPath() + "/login?redirectURI=" + redirectURI);
+        return false;
     }
 }
