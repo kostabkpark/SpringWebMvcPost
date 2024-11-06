@@ -13,17 +13,16 @@
         </tr>
         <tr th:each="post , postStat : ${allPosts}">
             <td>
-                <a th:href="@{/posts{postId}(postId=*{post.postId})}" th:text="${post.postId}"> postId  </a>
-                <form th:action="@{/post/delete/{postId}(postId=${post.postId})}" method="post">
-                    <input type="submit">
-                </form>
+                <a th:href="@{/posts/{postId}(postId=*{post.postId})}" th:text="${post.postId}"> postId  </a>
             </td>
             <td>
                 <a th:href="@{/posts/{postId}(postId=${post.postId})}" th:text="${post.title}"> title </a>
-                <button th:onclick="|location.href='@{/post/delete/{postId}(postId=${post.postId})}'|"></button>
             </td>
             <td th:text="${postStat.count}"></td>
             <td th:text="${post.likes}"></td>
+            <form th:action="@{/posts/delete/{postId}(postId=${post.postId})}" method="post">
+                <input type="submit" value="삭제">
+            </form>
         </tr>
     </table>
     <button th:onclick="|location.href='@{/posts/add}'|">등록하기</button>

@@ -48,6 +48,7 @@ public class PostController {
 //            @PathVariable("userId") String userId,
             PostCreateRequestDto postDto) {
 //        postDto.setUserId(userId);
+        // 세션 정보를 얻어온다. => 로그인 된 상태인지 확인
         postService.createPostWithUser("aaa", postDto);
         return "redirect:/posts";
     }
@@ -65,16 +66,19 @@ public class PostController {
 //            @PathVariable("userId") String userId,
             PostUpdateRequestDto postDto
     ) {
+        // 세션 정보를 얻어온다. => 로그인 된 상태인지 확인  ==> userId 와 post의 userId 가 일치하면 수정 가능
         postService.updateBodyWithUser(postId, "aaa", postDto);
         return "redirect:/posts/{postId}";
     }
 
-    @PostMapping("/{postId}/users/{userId}")
-    public void deletePostWithUser(
-            @PathVariable("postId") int postId,
-            @PathVariable("userId") String userId
-    ){
-        postService.removePostWithUser(postId, userId);
+    @PostMapping("/delete/{postId}")
+    public String deletePostWithUser(
+            @PathVariable("postId") int postId)
+//            @PathVariable("userId") String userId
+    {
+        // 세션 정보를 얻어온다. => 로그인 된 상태인지 확인  ==> userId 와 post의 userId 가 일치하면 삭제 가능
+        postService.removePostWithUser(postId, "aaa");
+        return "redirect:/posts";
     }
 
 }
